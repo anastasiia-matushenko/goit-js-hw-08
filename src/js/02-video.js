@@ -6,18 +6,17 @@ const iframe = document.querySelector('#vimeo-player');
 const player = new Player(iframe);
 const STORAGE_KEY = "videoplayer-current-time";
 
+loadData();
+
 player.on('timeupdate', throttle(data => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    localStorage.setItem(STORAGE_KEY, data.seconds);
 }, 1000));
 
-window.addEventListener('load', function () {
+function loadData () {
     if (localStorage.getItem(STORAGE_KEY)) {
-        const currentTime = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        const currentTime = localStorage.getItem(STORAGE_KEY);
 
-        player.setCurrentTime(currentTime.seconds).then(function (seconds) {
-        }).catch(function (error) {
-            console.log(error);
-        });
+        player.setCurrentTime(currentTime);
     }
-}, {once: true});
+};
 

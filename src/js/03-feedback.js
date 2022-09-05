@@ -30,7 +30,12 @@ function populateInput() {
         formData = JSON.parse(localStorage.getItem(STORAGE_KEY));
 
         const { email, message } = form.elements;
-        email.value = formData.email;
-        message.value = formData.message;
+        if (formData.email) {
+            email.value = formData.email;
+        }
+
+        if (formData.message) {
+            message.value = formData.message;
+        }
     } 
 };
